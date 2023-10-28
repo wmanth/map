@@ -1,0 +1,35 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ODD"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [121.47, 31.23],
+          [121.48, 31.24],
+          [121.49, 31.24],
+          [121.50, 31.26]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Divider"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [121.46, 31.20],
+          [121.47, 31.20],
+          [121.47, 31.21],
+          [121.48, 31.22]
+        ]
+      }
+    }
+  ]
+}
