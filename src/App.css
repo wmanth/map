@@ -1,0 +1,10 @@
+#ABC {
+    position: absolute;
+    margin: 10pt;
+    z-index: 10;
+    box-shadow: 1pt 1pt 4pt gray;
+}
+
+.offcanvas.show {
+    width: 200pt
+}
