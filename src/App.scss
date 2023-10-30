@@ -1,10 +1,10 @@
-#ABC {
+$offcanvas-horizontal-width: 256px;
+
+@import '~bootstrap/scss/bootstrap';
+
+#menu-button {
     position: absolute;
     margin: 10pt;
     z-index: 10;
     box-shadow: 1pt 1pt 4pt gray;
-}
-
-.offcanvas.show {
-    width: 200pt
 }

@@ -1,35 +1,28 @@
-import { useState } from 'react'
 import { Form } from 'react-bootstrap'
-import './Menu.css'
 
-function Menu() {
-	const [showODD, setShowODD] = useState(true)
-	const [showDivider, setShowDivider] = useState(false)
+export type Handler = (isActive: boolean) => void
 
-	const handleODDChanged = (e: any) => {
-		setShowODD(e.target.checked)
-	}
+export type MenuItem = {
+	name: string
+	checked: boolean
+	handler: Handler
+}
 
-	const handleDividerChanged = (e: any) => {
-		setShowDivider(e.target.checked)
-	}
+export type MenuProps = {
+	items: MenuItem[]
+}
+
+export default function Menu(props: MenuProps) {
 
 	return (
-		<Form>
-			<Form.Check
-				type="switch"
-				id="ODD"
-				checked={ showODD }
-				label="ODD"
-				onChange={ handleODDChanged }/>
-			<Form.Check
-				type="switch"
-				id="Divider"
-				label='Divider'
-				checked = { showDivider }
-				onChange={ handleDividerChanged }/>
+		<Form> { props.items.map(item => <Form.Check
+			key={ item.name }
+			type='switch'
+			checked = { item.checked }
+			id={ item.name }
+			label={ item.name }
+			onChange={ (event: any) => { item.handler(event.target.checked) } } />
+		)}
 		</Form>
 	)
 }
-
-export default Menu

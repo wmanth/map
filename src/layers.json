@@ -1,0 +1,28 @@
+[
+	{
+		"name": "ODD",
+		"layer": {
+			"id": "ODD-layer",
+			"type": "line",
+			"source": "features",
+			"paint": {
+				"line-color": "red",
+				"line-width": 3
+			},
+			"filter": ["==", "name", "ODD"]
+		}
+	},
+	{
+		"name": "Divider",
+		"layer": {
+			"id": "Divider-layer",
+			"type": "line",
+			"source": "features",
+			"paint": {
+				"line-color": "blue",
+				"line-width": 3
+			},
+			"filter": ["==", "name", "Divider"]
+		}
+	}
+]

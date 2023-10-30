@@ -1,33 +1,50 @@
 import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import Button from 'react-bootstrap/Button'
+import Offcanvas from 'react-bootstrap/Offcanvas'
 import Map from './components/Map'
-import Menu from './components/Menu'
+import Menu, { MenuItem } from './components/Menu'
 import { List } from 'react-bootstrap-icons'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import layers from './layers.json'
+import './App.scss'
 
-function App() {
-  const [show, setShow] = useState(false)
-  const handleShow = () => { setShow(true) }
-  const handleClose = () => { setShow(false) }
+export default function App() {
+ 	const [isSidebarVisible, setSidebarVisible] = useState(false)
+	const openSidebar = () => { setSidebarVisible(true) }
+	const closeSidebar = () => { setSidebarVisible(false) }
 
-  return (
-	<React.Fragment>
-		<Button id='ABC' variant="light" onClick={ handleShow }>
-			<List />
-		</Button>
-		<Offcanvas show={show} onHide={handleClose}>
-		  <Offcanvas.Header closeButton>
-			<Offcanvas.Title>Features</Offcanvas.Title>
-		  </Offcanvas.Header>
-		  <Offcanvas.Body>
-			<Menu />		  
-		  </Offcanvas.Body>
-		</Offcanvas>
-		<Map />
-	</React.Fragment>
-  )
+	const [visibleLayers, setVisibleLayers] = useState(new Set<string>(layers.map(item => item.layer.id)))
+
+	const menuItems: MenuItem[] = layers.map(item => {
+		return {
+			name: item.name,
+			checked: visibleLayers.has(item.layer.id),
+			handler: (isActive: boolean) => {
+				console.log(`switching ${item.name} ${isActive ? 'on' : 'off'}`)
+				const layers = new Set(visibleLayers)
+				if (isActive) {
+					layers.add(item.layer.id)
+				} else {
+					layers.delete(item.layer.id)
+				}
+				setVisibleLayers(layers)
+			}
+		}
+	})
+
+	return (
+		<React.Fragment>
+			<Button id='menu-button' variant="light" onClick={ openSidebar }>
+				<List />
+			</Button>
+			<Offcanvas show={ isSidebarVisible } onHide={ closeSidebar }>
+			<Offcanvas.Header closeButton>
+				<Offcanvas.Title>Features</Offcanvas.Title>
+			</Offcanvas.Header>
+			<Offcanvas.Body>
+				<Menu items={ menuItems }/>
+			</Offcanvas.Body>
+			</Offcanvas>
+			<Map visibleLayers={ visibleLayers }/>
+		</React.Fragment>
+	)
 }
-
-export default App;
